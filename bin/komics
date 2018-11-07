@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+import argparse
+import sys
+
+commands = {
+    'all',
+    'all2',
+    'bam2fq',
+    'trimfq',
+    'assemble',
+    'circularize',
+    'qualcheck',
+    'annotate',
+    'polish'
+    }
+
+def usage():
+    print('\nProgram: komics (Kinetoplast genOMICS)')
+    
+    print('Dependencies: megahit blast smalt')
+    print('Usage: komics <command> [options]\n')
+    
+    print('Available commands:')
+    print('\t all:         \t Performs bam2fq, trimfq, assemble, circularize, qualcheck, annotate')
+    print('\t all2:        \t Performs assemble, circularize, qualcheck, annotate')
+    print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
+    print('\t trimfq:      \t Cleans and filters reads for high quality')
+    print('\t assemble:    \t Assembles minicircles using high quality reads from trimfq')
+    print('\t circularize: \t Circularizes minicircles from assemble')
+    print('\t polish:      \t Reorientate and filter circular minicircles')
+    print('\t qualcheck:   \t Estimates read counts and depths per minicircle and overall')
+    print('\t annotate:    \t Annotates minicircles\n')   
+    
+    print('To get usage for a given command use: komics command -h, --help\n')
+    
+    sys.exit(0)
+
+if len(sys.argv) == 1 or sys.argv[1] in ['-h', '-help', '--help']:
+    usage()
+
+command = sys.argv.pop(1)
+
+if command not in commands:
+    sys.stderr.write('\nERROR: command "' + command + '" not recognised. Cannot continue.\n')
+    sys.stderr.write('Please choose an appropiate command from the list below.\n')
+    usage()
+
+exec('import komics.commands.' + command)
+exec('komics.commands.' + command + '.main()')
