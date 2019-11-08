@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-
         
 setup(name='komics',
       version='1.1.8',
@@ -21,7 +20,7 @@ setup(name='komics',
       classifiers=[
       	'Development Status :: 2 - Pre-Alpha',
       	'Topic :: Scientific/Engineering :: Bio-Informatics',
-      	'Programming Language :: Python :: 2.7',
+      	'Programming Language :: Python :: 3.7',
       	'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
       ],
       zip_safe=False,

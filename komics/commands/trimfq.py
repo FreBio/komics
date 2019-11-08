@@ -1,4 +1,3 @@
-import sys
 import komics
 import argparse
 
@@ -12,7 +11,7 @@ def main():
 	parser.add_argument('reads2', help='FASTQ file w/ second-in-pair reads', metavar='reads1')
 	parser.add_argument('--threads', type=int, help='Number of threads [%(default)s]', default=1, metavar='INT')
 	parser.add_argument('--dir', help='Directory containing the trimmomatic jar file and adapters. \
-	                                  If "None" (by default), the path environment variable $DIR_TRIMMOMATIC is used [%(default)s].', default=None , metavar='')
+	                                  If "None" (default), the path environment variable $DIR_TRIMMOMATIC is used [%(default)s].', default=None , metavar='')
 	parser.add_argument('--maxlength', type=int, help='Maximum read length after trimming [%(default)s]', default=150, metavar='INT')
 	parser.add_argument('--minlength', type=int, help='Minimum read length after trimming [%(default)s]', default=100, metavar='INT')
 	parser.add_argument('--minqual', type=int, help='Minimum (phred-scaled) base quality [%(default)s]', default=30, metavar='INT')

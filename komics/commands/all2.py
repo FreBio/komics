@@ -15,10 +15,7 @@ def main():
         description = 'Runs bamfq, trimfq, assemble, circularize, qualcheck',
         usage = 'komics all [options] <out> <bam>')
     parser.add_argument('out', help='Prefix used for labeling files and sequences', metavar='out')
-    parser.add_argument('mreads1', help='FASTQ file w/ first-in-pair unmapped reads', metavar='mreads1')
-    parser.add_argument('mreads2', help='FASTQ file w/ second-in-pair unmapped reads', metavar='mreads2')
-    parser.add_argument('treads1', help='FASTQ file w/ first-in-pair trimmed reads', metavar='treads1')
-    parser.add_argument('treads2', help='FASTQ file w/ second-in-pair trimmed reads', metavar='treads2')
+    parser.add_argument('bam', help='BAM file of reads aligned to reference genome', metavar='bam')
     parser.add_argument('--threads', type=int, help='Number of threads [%(default)s]', default=1, metavar='INT')
     parser.add_argument('--kmin', help='Minimum k-mer (must be odd number) [%(default)s]', default=29, metavar='INT')
     parser.add_argument('--kmax', help='Maximum k-mer (must be odd number) [%(default)s]', default=119, metavar='INT')
@@ -29,6 +26,7 @@ def main():
     parser.add_argument('--word', type=int, help='Specifies the word length for smalt index file [%(default)s]', default=8, metavar='INT')
     parser.add_argument('--step', type=int, help='Specifies how many bases are skipped between indexed words for smalt index file [%(default)s]', default=2, metavar='INT')
     parser.add_argument('--minidentity', type=int, help='Minimum percent identity between minicircles [%(default)s]', default=95, metavar='INT')
+    parser.add_argument('--cigar', type=int, help='Specifies the read length [%(default)s]', default=100, metavar='INT')
     options = parser.parse_args()
 
 
@@ -77,7 +75,8 @@ def main():
       options.mreads2,
       options.threads,
       options.word,
-      options.step
+      options.step,
+      options.cigar
     )
     kq.run()
 

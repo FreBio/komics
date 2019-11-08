@@ -5,6 +5,7 @@ TO DO:
 '''
 
 import os
+import re
 import sys
 import subprocess
 
@@ -52,13 +53,15 @@ class Trimmomatic:
   def _build_jar(self, dir):
     if dir is None:
       try:
-        os.environ['DIR_TRIMMOMATIC']
-        directory = os.path.abspath(os.environ['DIR_TRIMMOMATIC'] + '/trimmomatic-0.36.jar')
+        path_trim=os.environ['DIR_TRIMMOMATIC']
+        path_exe=re.sub("/$","",re.sub(".*/Trimmo", "Trimmo", path_trim))
+        #directory = os.path.abspath(os.environ['DIR_TRIMMOMATIC'] + '/trimmomatic-0.36.jar')
+        directory = os.path.abspath(os.environ['DIR_TRIMMOMATIC'] + '/' + path_exe + '.jar')
       except KeyError:
-        sys.stderr.write('\nPlease set the environment variable "DIR_TRIMMOMATIC""\n')
+        sys.stderr.write('\nPlease set the environment variable "DIR_TRIMMOMATIC" or set the directory name with the option "--dir"\n')
         sys.exit(0)   
     else:
-      directory = os.path.abspath(dir + '/trimmomatic-0.36.jar')
+      directory = os.path.abspath(dir + '/' + re.sub("/$","",re.sub(".*/Trimmo", "Trimmo", dir)) + '.jar')
     return directory
 
 

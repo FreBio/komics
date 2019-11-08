@@ -7,12 +7,11 @@ TODO:
 import os
 import re
 import sys
-import glob
 import komics
 import argparse
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
-
+from timeit import default_timer as timer
 
 class Error (Exception): pass
 
@@ -28,19 +27,21 @@ def main():
     parser.add_argument('--minlength', type=int, help='Minimum read length after trimming [%(default)s]', default=100, metavar='INT')
     parser.add_argument('--minqual', type=int, help='Minimum (phred-scaled) base quality [%(default)s]', default=30, metavar='INT')
     parser.add_argument('--windowbp', type=int, help='Length (bp) of sliding windows [%(default)s]', default=10, metavar='INT')
-    parser.add_argument('--kmin', help='Minimum k-mer (must be odd number) [%(default)s]', default=89, metavar='INT')
-    parser.add_argument('--kmax', help='Maximum k-mer (must be odd number) [%(default)s]', default=119, metavar='INT')
-    parser.add_argument('--kstep', help='Steps between k-mers (must be even number) [%(default)s]', default=10, metavar='INT')
-    parser.add_argument('--length', help='Minimum length (bp) of contigs to be kept [%(default)s]', default=400, metavar='INT')
-    parser.add_argument('--CSB3', help='Additional CSB3 motif [%(default)s].', default=None, metavar='')
+    parser.add_argument('--kmin', type=int, help='Minimum k-mer (must be odd number) [%(default)s]', default=89, metavar='INT')
+    parser.add_argument('--kmax', type=int, help='Maximum k-mer (must be odd number) [%(default)s]', default=119, metavar='INT')
+    parser.add_argument('--kstep', type=int, help='Steps between k-mers (must be even number) [%(default)s]', default=10, metavar='INT')
+    parser.add_argument('--length', type=int, help='Minimum length (bp) of contigs to be kept [%(default)s]', default=400, metavar='INT')
     parser.add_argument('--minoverlap', type=int, help='Minimum overlap (bp) between the contig ends [%(default)s]', default=20, metavar='INT')
     parser.add_argument('--word', type=int, help='Specifies the word length for smalt index file [%(default)s]', default=8, metavar='INT')
     parser.add_argument('--step', type=int, help='Specifies how many bases are skipped between indexed words for smalt index file [%(default)s]', default=2, metavar='INT')
     parser.add_argument('--minidentity', type=int, help='Minimum percent identity between minicircles [%(default)s]', default=95, metavar='INT')
+    parser.add_argument('--cigar', type=int, help='Specifies the read length [%(default)s]', default=100, metavar='INT')
     options = parser.parse_args()
 
 
-
+    start = timer()
+#    sys.stderr.write('\nKOMICS initiated at ' + str(start) + '\n')
+    
     # ------ Running bamfq ---------
     if not os.path.exists(options.bam):
       sys.stderr.write('\nERROR: BAM file not found: "' + options.bam + '"\n')
@@ -75,7 +76,7 @@ def main():
     trimmed_reads1=os.path.abspath(options.out + '_trimmed_1P.fq.gz')
     trimmed_reads2=os.path.abspath(options.out + '_trimmed_2P.fq.gz')
     
-    klist=range(options.kmin, options.kmax+1, options.kstep)
+    klist=list(range(options.kmin, options.kmax+1, options.kstep))
     files=[]
     for k in klist:
       OUT = str(options.out + '_' + str(k))
@@ -90,7 +91,6 @@ def main():
         int(k),
         int(0),
         options.length,
-        options.CSB3,
       )
       ka.run()
 
@@ -101,7 +101,6 @@ def main():
       kc = komics.circularize.Circularizer(
         OUT,
         contigs,
-        threads=options.threads,
         minoverlap=options.minoverlap,
       )
       kc.run()
@@ -136,11 +135,13 @@ def main():
       nmppd_reads1,
       nmppd_reads2,
       options.threads,
-      options.word,
-      options.step
+      options.cigar
     )
     kq.run()
 
+    end = timer()
+#    sys.stderr.write('\nKOMICS ended at ' + str(end) + '\n')
+    sys.stderr.write('\nKOMICS finished in: ' + str(end - start) + 'seconds\n')
 
     # ------ Cleaning ---------------
 #    for f in glob.glob('*_megahit'):

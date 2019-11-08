@@ -1,1 +1,6 @@
+__pycache__
 venv
+venvpy37/
+build/
+dist/
+docs/

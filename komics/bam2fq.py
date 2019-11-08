@@ -34,9 +34,14 @@ class Bam2fq:
     if seq.is_reverse:
       sequence_rc = "".join([comp[x] for x in seq.query_sequence[::-1]])
       quality_rc = seq.query_qualities[::-1]
-      file.write("@%s\n%s\n+\n%s\n" % (seq.qname, sequence_rc, "".join([chr(x + 33) for x in quality_rc])))
+      print((seq.qname, sequence_rc, "".join([chr(x + 33) for x in quality_rc])))
+      file.write(str('@' + seq.qname + '\n' + sequence_rc + '\n+\n' + "".join([chr(x + 33) for x in quality_rc]) + '\n').encode())
+#      file.write("@%s\n%s\n+\n%s\n".encode() % (seq.qname, sequence_rc, "".join([chr(x + 33) for x in quality_rc])))
     else:
-      file.write("@%s\n%s\n+\n%s\n" % (seq.qname, seq.query_sequence, "".join([chr(x + 33) for x in seq.query_qualities])))
+      file.write(str('@' + seq.qname + '\n' + seq.query_sequence + '\n+\n' + "".join([chr(x + 33) for x in seq.query_qualities]) + '\n').encode())
+      #print('@' + seq.qname + '\n' + seq.query_sequence + '\n+\n' + "".join([chr(x + 33) for x in seq.query_qualities]) + '\n')
+      # print('\n+\n%s\n'.encode() % (seq.qname, seq.query_sequence, "".join([chr(x + 33) for x in seq.query_qualities])))
+#      file.write("@%s\n%s\n+\n%s\n".encode() % (seq.qname, seq.query_sequence, "".join([chr(x + 33) for x in seq.query_qualities])))
 
 
   def run(self):

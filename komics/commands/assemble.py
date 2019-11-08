@@ -15,10 +15,10 @@ def main():
 	parser.add_argument('--kmax', help='Maximum k-mer (must be odd number) [%(default)s]', default=119, metavar='INT')
 	parser.add_argument('--kstep', help='Steps between k-mers (must be even number) [%(default)s]', default=10, metavar='INT')
 	parser.add_argument('--length', help='Minimum length (bp) of contigs to be kept [%(default)s]', default=400, metavar='INT')
-	parser.add_argument('--CSB3', help='Additional CSB3 motif [%(default)s]. \
-	                              The conserved CSB3 motifs are used by komics to find minicircles in the pool of assembled contigs. \
-	                              The default CSB3 motifs are GGGGTTGGTGT and GGGGTTAGTGT (and their reverse complements). \
-	                              With the "CSB3" option, the user can specify one additional motif if needed.', default=None, metavar='')
+#	parser.add_argument('--CSB3', help='Additional CSB3 motif [%(default)s]. \
+#	                              The conserved CSB3 motifs are used by komics to find minicircles in the pool of assembled contigs. \
+#	                              The default CSB3 motifs are GGGGTTGGTGT and GGGGTTAGTGT (and their reverse complements). \
+#	                              With the "CSB3" option, the user can specify one additional motif if needed.', default=None, metavar='')
 	options = parser.parse_args()
 	
 	ka = komics.assemble.Megahit(
@@ -30,6 +30,5 @@ def main():
 		options.kmax,
 		options.kstep,
 		options.length,
-		options.CSB3,
 	)
 	ka.run()

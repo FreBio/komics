@@ -1,6 +1,6 @@
 '''
 TODO:
-  * include option for read length -> should become 125M
+  * consider removing the extension of minicircles, if they start anyway with CSB1?
   * include coverage plots pdf
 '''
 
@@ -11,7 +11,6 @@ import re
 import sys
 import pysam
 import numpy
-import logging
 import subprocess
 
 from Bio import SeqIO
@@ -25,31 +24,27 @@ class Tests:
     fasta,
     reads1,
     reads2,
-    threads=1,
-    word=8,
-    step=2,
-    CSB3=None,
+    threads,
+    cigar,
     ):
       self.out = out
       self.input_contigs = os.path.abspath(fasta)
       self.reads1 = os.path.abspath(reads1)
       self.reads2 = os.path.abspath(reads2)
       self.threads = threads
-      self.k = int(word)
-      self.s = int(step)
       self.reffile = 'tmp.' + self.out + ".extended.fasta"
-      self.indexfile = str(self.reffile) + ".k" + str(self.k) + "s" + str(self.s)
+      self.indexfile = str(self.reffile) + ".k8s2"
       self.contigstats = self.out + ".contigstats.txt"
       self.overalstats = self.out + ".overalstats.txt"
       self.sam = 'tmp.' + self.out + ".sam"
       self.bam = 'tmp.' + self.out + ".bam"
-      self.CSB3 = self._build_CSB3(CSB3)
+      self.CSB3 = 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC'
       
       # for internal use only
-      self.extend = 125
+      self.extend = int(cigar)
       self.samflags = [81, 83, 161, 163, 97, 99, 145, 147]
       self.MQ = 20
-      self.cigar = '125M'
+      self.cigar = str(cigar) + 'M'
       
       if not os.path.exists(self.input_contigs):
         sys.stderr.write('\nERROR: contigs file not found: "' + self.input_contigs + '"\n')
@@ -68,13 +63,6 @@ class Tests:
     return rc
 
 
-  def _build_CSB3(self, CSB3):
-    if CSB3 is None:
-      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTAGTGT|ACACTAACCCC'
-    else:
-      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTAGTGT|ACACTAACCCC' + '|' + CSB3 + '|' + self._rev_comp(CSB3)
-
-
   def extend_fasta(self):
     tmp_result=[]    
     for minicircle in SeqIO.parse(self.input_contigs, "fasta"):
@@ -91,8 +79,8 @@ class Tests:
   
     smalt_index_command = [
       "smalt index",
-      "-k", str(self.k),
-      "-s", str(self.s), 
+      "-k 8",
+      "-s 2", 
       self.indexfile,
       self.reffile
       ]
@@ -130,7 +118,7 @@ class Tests:
     samfile=pysam.AlignmentFile(self.bam, "rb")
     outfile=samfile.header['SQ']
     
-    for ref in xrange(0,len(outfile)):
+    for ref in list(range(0,len(outfile))):
       outfile[ref]['Nmapped']=0
       outfile[ref]['NMQ20']=0
       outfile[ref]['Nproperpair']=0
@@ -139,7 +127,7 @@ class Tests:
       outfile[ref]['NCSB3pp']=0
       
 
-    sys.stderr.write('Estimating read counts.\n')
+    sys.stderr.write('\n\nEstimating read counts.\n')
     for read in samfile.fetch(until_eof=True):
       N = N+1
       if re.findall(self.CSB3, str(read.seq)):
@@ -179,7 +167,7 @@ class Tests:
     
     sys.stderr.write('Estimating read depths.\n')
     
-    for contig in xrange(0, len(outfile)):
+    for contig in list(range(0, len(outfile))):
       start_pos = 0
 #      break_pos = outfile[contig]['LN']
       Y = list()

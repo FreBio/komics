@@ -25,7 +25,6 @@ class Megahit:
     kmax=119,
     kstep=10,
     length=400,
-    CSB3=None,
     ):
       self.out = out
       self.csb3_contigs = os.path.abspath('tmp.' + self.out + '.csb3contigs.fasta')
@@ -37,7 +36,7 @@ class Megahit:
       self.kmax = kmax
       self.kstep = kstep
       self.length = length
-      self.CSB3 = self._build_CSB3(CSB3)
+      self.CSB3 = 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC'
 
       if not os.path.exists(self.reads1):
         sys.stderr.write('\nERROR: reads1 file not found: "' + self.reads1 + '"\n')
@@ -53,11 +52,11 @@ class Megahit:
     return rc
 
 
-  def _build_CSB3(self, CSB3):
-    if CSB3 is None:
-      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTAGTGT|ACACTAACCCC'
-    else:
-      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTAGTGT|ACACTAACCCC' + '|' + CSB3 + '|' + self._rev_comp(CSB3)
+#  def _build_CSB3(self, CSB3):
+#    if CSB3 is None:
+#      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC'
+#    else:
+#      return 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC' + '|' + CSB3 + '|' + self._rev_comp(CSB3)
 
 
   def runmega(self):
@@ -66,6 +65,7 @@ class Megahit:
       "-1", self.reads1,
       "-2", self.reads2,
       "-t", str(self.threads),
+      "-m 4",
       "-o", "tmp." + self.out + "_megahit",
       "--min-contig-len", str(self.length),
       "--out-prefix", self.out,
