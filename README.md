@@ -1,15 +1,16 @@
+## Contents
+  * [Introduction](#introduction)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Citation](#citation)
+
+
 ## Introduction
 A tool for automated assembly and circularization of mitochondrial genomes in trypanosomatids.
 
 The input is reads in BAM or FASTQ format, and the output is circularized minicircles in FASTA format.
 
 NOTE: this is a work in progress, please report any issues to fvandenbroeck AT itg.be
-
-
-## Contents
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Citation](#citation)
 
 
 ## Installation
