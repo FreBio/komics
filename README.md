@@ -1,4 +1,4 @@
-# KOMICS
+# INTRODUCTION
 A tool for automated assembly and circularization of mitochondrial genomes in trypanosomatids.
 
 The input is reads in BAM or FASTQ format, and the output is circularized minicircles in FASTA format.
@@ -41,7 +41,7 @@ komics command --help
 
 
 Available commands:
-all:         	 Performs bam2fq, trimfq, assemble, circularize, qualcheck
+all:         	 Performs bam2fq, trimfq, assemble, circularize, polish, qualcheck
 bam2fq:      	 Writes paired-end reads from a BAM file to FASTQ files
 trimfq:      	 Cleans and filters reads for high quality
 assemble:    	 Assembles minicircles using high quality reads from trimfq
