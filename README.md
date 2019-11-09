@@ -6,9 +6,9 @@
 
 
 ## Introduction
-A tool for automated assembly and circularization of mitochondrial genomes in trypanosomatids.
+A tool for automated assembly and circularization of mitochondrial genomes in trypanosomatids. The input is reads in BAM or FASTQ format, and the output is circularized minicircles in FASTA format.
 
-The input is reads in BAM or FASTQ format, and the output is circularized minicircles in FASTA format.
+komics was developed at the Antwerp Institute of Tropical Medicine and the University of Edinburgh.
 
 NOTE: this is a work in progress, please report any issues to fvandenbroeck AT itg.be
 
