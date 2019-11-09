@@ -15,7 +15,7 @@ NOTE: this is a work in progress, please report any issues to fvandenbroeck AT i
 ## Installation
 KOMICS has the following dependencies, which need to be installed first:
   * [MEGAHIT](http://www.metagenomics.wiki/tools/assembly/megahit)
-  * [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic)
+  * [TRIMMOMATIC](http://www.usadellab.org/cms/?page=trimmomatic)
   * [BLASTn](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
   * [SMALT](https://www.sanger.ac.uk/science/tools/smalt-0)
   * [VSEARCH](https://github.com/torognes/vsearch)
