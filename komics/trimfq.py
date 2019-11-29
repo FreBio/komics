@@ -54,14 +54,14 @@ class Trimmomatic:
     if dir is None:
       try:
         path_trim=os.environ['DIR_TRIMMOMATIC']
-        path_exe=re.sub("/$","",re.sub(".*/Trimmo", "Trimmo", path_trim))
+        path_exe=re.sub("/$","",re.sub(".*/Trimmo", "trimmo", path_trim))
         #directory = os.path.abspath(os.environ['DIR_TRIMMOMATIC'] + '/trimmomatic-0.36.jar')
         directory = os.path.abspath(os.environ['DIR_TRIMMOMATIC'] + '/' + path_exe + '.jar')
       except KeyError:
         sys.stderr.write('\nPlease set the environment variable "DIR_TRIMMOMATIC" or set the directory name with the option "--dir"\n')
         sys.exit(0)   
     else:
-      directory = os.path.abspath(dir + '/' + re.sub("/$","",re.sub(".*/Trimmo", "Trimmo", dir)) + '.jar')
+      directory = os.path.abspath(dir + '/' + re.sub("/$","",re.sub(".*/Trimmo", "trimmo", dir)) + '.jar')
     return directory
 
 
