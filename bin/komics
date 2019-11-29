@@ -16,11 +16,11 @@ commands = {
 def usage():
     print('\nProgram: komics (Kinetoplast genOMICS)')
     
-    print('Dependencies: megahit blastn smalt vsearch')
+    print('Dependencies: megahit trimmomatic blastn smalt vsearch')
     print('Usage: komics <command> [options]\n')
     
     print('Available commands:')
-    print('\t all:         \t Performs bam2fq, trimfq, assemble, circularize, qualcheck')
+    print('\t all:         \t Performs bam2fq, trimfq, assemble, circularize, polish, qualcheck')
     print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
     print('\t trimfq:      \t Cleans and filters reads for high quality')
     print('\t assemble:    \t Assembles minicircles using high quality reads from trimfq')
