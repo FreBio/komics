@@ -5,6 +5,7 @@ import sys
 
 commands = {
     'all',
+    'bam2fq',
     'trimfq',
     'assemble',
     'circularize',    
@@ -20,6 +21,7 @@ def usage():
     
     print('Available commands:')
     print('\t all:         \t Runs assemble, circularize and polish')
+    print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
     print('\t trimfq:      \t Cleans and filters reads for high quality')
     print('\t assemble:    \t Assembles minicircles using high quality reads from trimfq')
     print('\t circularize: \t Circularizes minicircles from assemble')

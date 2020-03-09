@@ -5,5 +5,5 @@ try:
 except:
     __version__ = 'local'
 
-from komics import trimfq, assemble, circularize, qualcheck, polish
+from komics import bam2fq, trimfq, assemble, circularize, qualcheck, polish
 

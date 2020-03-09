@@ -20,6 +20,7 @@ KOMICS has the following dependencies, which need to be installed first:
   * [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
   * [SMALT](https://www.sanger.ac.uk/science/tools/smalt-0)
   * [VSEARCH](https://github.com/torognes/vsearch)
+  * [HTSlib](http://www.htslib.org)
 
 Note that you can use the environment variable $TRIMMOMATIC_DIR to specify the directory containing the Trimmomatic jar file. If this environment variable is set, then it is used by KOMICS. Otherwise, you will need to specify the directory with --dir.
 
@@ -47,7 +48,7 @@ komics command --help
 
 
 Available commands:
-all:         	 Performs bam2fq, trimfq, assemble, circularize, polish, qualcheck
+all:         	 Performs assemble, circularize and polish
 bam2fq:      	 Writes paired-end reads from a BAM file to FASTQ files
 trimfq:      	 Cleans and filters reads for high quality
 assemble:    	 Assembles minicircles using high quality reads from trimfq
