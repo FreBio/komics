@@ -1,6 +1,7 @@
 # MANIFEST.in
+exclude venvpy37 
 exclude .gitignore
-include README.rst
+include README.md
 include setup.cfg
 prune .cache
 prune .git

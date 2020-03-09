@@ -23,9 +23,14 @@ KOMICS has the following dependencies, which need to be installed first:
 
 Note that you can use the environment variable $TRIMMOMATIC_DIR to specify the directory containing the Trimmomatic jar file. If this environment variable is set, then it is used by KOMICS. Otherwise, you will need to specify the directory with --dir.
 
-Once the dependencies are installed, install KOMICS using pip3:
+Once the dependencies are installed, install the latest version of KOMICS using pip3:
 ```
-pip3 install komics
+pip3 install git+https://github.com/FreBio/komics.git
+```
+
+If you want to install komics on a server where you don't have sudo permission:
+```
+pip3 install git+https://github.com/FreBio/komics.git --user
 ```
 
 

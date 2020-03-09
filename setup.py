@@ -13,9 +13,7 @@ setup(name='komics',
       packages=find_packages(exclude=['docs', 'tests*', 'data*']),
       package_data={'komics': ['data/*']},
       install_requires=[
-      	'cython',
-	'biopython',
-      	'pysam',
+      	'biopython',
       ],
       #dependency_links=['https://github.com/sanger-pathogens/Fastaq.git'],
       classifiers=[
