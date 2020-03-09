@@ -6,4 +6,4 @@ except:
     __version__ = 'local'
 
 
-from komics.commands import all, all2, bam2fq, trimfq, assemble, circularize, polish, qualcheck
+from komics.commands import all, trimfq, assemble, circularize, polish, qualcheck
