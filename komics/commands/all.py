@@ -21,27 +21,27 @@ def main():
         usage = 'komics all [options] <out> <reads1> <reads2>')
     parser.add_argument('out', help='Prefix used for labeling files and sequences', metavar='out')
     parser.add_argument('reads1', help='FASTQ file w/ first-in-pair reads', metavar='reads1')
-    parser.add_argument('reads2', help='FASTQ file w/ second-in-pair reads', metavar='reads1')
-    parser.add_argument('--threads', type=int, help='Number of threads [%(default)s]', default=1, metavar='INT')
+    parser.add_argument('reads2', help='FASTQ file w/ second-in-pair reads', metavar='reads2')
+    parser.add_argument('--threads', type=int, help='Number of threads for the megahit assembler [%(default)s]', default=1, metavar='INT')
     parser.add_argument('--kmin', type=int, help='Minimum k-mer (must be odd number) [%(default)s]', default=89, metavar='INT')
     parser.add_argument('--kmax', type=int, help='Maximum k-mer (must be odd number) [%(default)s]', default=119, metavar='INT')
     parser.add_argument('--kstep', type=int, help='Steps between k-mers (must be even number) [%(default)s]', default=10, metavar='INT')
-    parser.add_argument('--length', type=int, help='Minimum length (bp) of contigs to be kept [%(default)s]', default=400, metavar='INT')
-    parser.add_argument('--minoverlap', type=int, help='Minimum overlap (bp) between the contig ends [%(default)s]', default=20, metavar='INT')
-    parser.add_argument('--minidentity', type=int, help='Minimum percent identity between minicircles [%(default)s]', default=95, metavar='INT')
+    parser.add_argument('--length', type=int, help='Remove minicircles shorter than INT basepair [%(default)s]', default=400, metavar='INT')
+    parser.add_argument('--minoverlap', type=int, help='Circularize minicircles when contig ends show minimum INT bp overlap [%(default)s]', default=20, metavar='INT')
+    parser.add_argument('--minidentity', type=int, help='Cluster minicircles when at least INT percent identical [%(default)s]', default=95, metavar='INT')
     options = parser.parse_args()
 
 
     start = timer()
-#    sys.stderr.write('\nKOMICS initiated at ' + str(start) + '\n')
+#   sys.stderr.write('\nKOMICS initiated at ' + str(start) + '\n')
     
 
     # ------ Running assemble -------
     if not os.path.exists(options.reads1):
-      sys.stderr.write('\nERROR: BAM file not found: "' + options.reads1 + '"\n')
+      sys.stderr.write('\nERROR: FASTQ file not found: "' + options.reads1 + '"\n')
       sys.exit(0)
     if not os.path.exists(options.reads2):
-      sys.stderr.write('\nERROR: BAM file not found: "' + options.reads2 + '"\n')
+      sys.stderr.write('\nERROR: FASTQ file not found: "' + options.reads2 + '"\n')
       sys.exit(0)
     
     klist=list(range(options.kmin, options.kmax+1, options.kstep))

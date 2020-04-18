@@ -1,6 +1,16 @@
 # MANIFEST.in
-exclude venvpy37 
+exclude komics/bam2fq.py
+exclude komics/trimfq.py
+exclude komics/qualcheck.py
+exclude komics/assemble_bkp.py
+exclude komics/commands/all2.py
+exclude komics/commands/bam2fq.py
+exclude komics/commands/trimfq.py
+exclude komics/commands/qualcheck.py
+exclude venvpy37
 exclude .gitignore
+exclude testdata
+include komics/maxicircles.fasta
 include README.md
 include setup.cfg
 prune .cache

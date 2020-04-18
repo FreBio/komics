@@ -52,7 +52,7 @@ polish:      	 Reorientate and filter circular minicircles
 
 ### Tutorial
 
-#### 1. Prepare your data
+#### Prepare your data
 If you have a BAM file with sequence reads aligned against a nuclear reference genome, you first need to extract the unaligned reads (i.e those reads that likely originate from the mitochondrial genome) from the BAM file using [samtools](http://www.htslib.org), and then convert the BAM file into FASTQ files using [GATK](https://gatk.broadinstitute.org/hc/en-us):
 ```
 samtools view -b -f 4 -o unmapped.reads.bam reads.bam
@@ -66,7 +66,7 @@ fastp -i reads1.fq.gz -I reads2.fq.gz -o reads1.trimmed.fq.gz -O reads2.trimmed.
 You might need to change the setting -l (minimum read length) to a lower value if your reads are shorter, but we recommend to keep -b (maximum read length) to 125bp because Illumina sequencing quality decreases with increasing number of cycles (i.e. longer reads).
 
 
-#### 2. Assemble and circularize mitochondrial minicircles
+#### Assemble the mitochondrial genome
 Use `komics all` to automate the assembly, circularization and polishing of the mitochondrial minicircles. This can be done using a single command, for instance:
 ```
 komics all --kmin 99 --kmax 119 --kstep 10 --minidentity 95 run1 reads1.trimmed.fq.gz reads2.trimmed.fq.gz
@@ -79,40 +79,33 @@ The resulting circularized minicircle sequences can be found in the file run1.mi
 1. Assemble and circularize contigs using a kmer of 109
 1. Assemble and circularize contigs using a kmer of 119
 1. Merge circularized minicircles generated during the first three steps
-1. Reorient minicircles and put the Conserved Sequence Block 1 (CSB1) at the start of the contig
+1. Reorient circularized minicircles and put the Conserved Sequence Block 1 (CSB1) at the start of the contig
 1. Cluster minicircles that are 95% identical
 
-Note that `komics all` will only retain circularized minicircles, and discard all other contigs. If you also wish to keep the non-circularized minicircles, then you need to use `komics assemble`. In addition, for some datasets it might be better to assemble contigs using a k-mer sweep approach. This can be done with `komics assemble`, which will optimize a single assembly by sweeping through the different kmers (e.g. 99, 109 and 119).
+Note that `komics all` will only retain circularized minicircles, and discard all other contigs. If you also wish to keep the non-circularized minicircles, then you need to use `komics assemble`. In addition, for some datasets it might be better to assemble contigs using a k-mer sweep approach. This too can be done with `komics assemble`, which will optimize a single assembly by sweeping through the different kmers (e.g. 99, 109 and 119).
 ```
 komics assemble --kmin 99 --kmax 119 --kstep 10 run1 reads1.trimmed.fq.gz reads2.trimmed.fq.gz
 komics circularize run1 tmp.run1.csb3contigs.fasta
 komics polish run1 tmp.run1.circularized.fasta
 ```
 
-Again, the resulting minicircle sequences can be found in the file run1.minicircles.fasta, and will include both non-circularized and circularized minicircles.
+Again, the resulting minicircle sequences can be found in the file run1.minicircles.fasta, and will now include both non-circularized and circularized minicircles.
 
-We recommend to do several runs using different kmer-values to find the best strategy for your dataset. For minicircles, we recommend using high kmer values that are close to the read length (e.g. kmer of 119 for reads that are 125 bp long). You are probably interested in using a kmer strategy that yields the largest number of circularized minicircles.
-
-
-#### 3. Assemble the mitochondrial maxicircle
-The `komics all` and `komics assemble` commands will also extract the maxicircle contigs using a blast approach. Note that the optimal kmer might be different for maxicircles and minicircles. For maxicircles, we recommend using low kmer values (e.g. 29) and finder the kmer strategy that yields the longest maxicircle contig.
+The `komics all` and `komics assemble` commands will also extract the maxicircle contigs using a blast approach. Note that the optimal kmer might be different for maxicircles and minicircles. For minicircles, we recommend using high kmer values that are close to the read length (e.g. kmer of 119 for reads that are 125 bp long). These might work well too for the maxicircle, but usually you need to choose lower kmers (e.g. 39) to obtain longer maxicircle contigs.
 
 
 ### Reading
 This paper includes a detailed outline on how to assemble, circularize and annotate maxicircles based on homology:
-
 __Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala__
-Van den Broeck et al. Molecular Ecology doi: [10.1111/mec.14809](https://pubmed.ncbi.nlm.nih.gov/30142241/)
+Van den Broeck et al. 2018 Molecular Ecology doi: [10.1111/mec.14809](https://pubmed.ncbi.nlm.nih.gov/30142241/)
 
 This paper includes a detailed outline on how to study mitochondrial genome complexity in whole-genome sequencing datasets:
-
 __Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck et al. BIORXIV 2019 doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
+Van den Broeck et al. 2019 BIORXIV doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
 
 This paper describes the assembly and annotation of the mitochondrial genome in T. brucei, including characterization of the U indel editing patterns:
-
 __Assembly and annotation of the mitochondrial minicircle genome of a differentiation-competent strain of Trypanosoma brucei__
-Cooper et al. Nucleic Acids Research 2019 doi: [10.1093/nar/gkz928](https://academic.oup.com/nar/article/47/21/11304/5609525)
+Cooper et al. 2019 Nucleic Acids Research doi: [10.1093/nar/gkz928](https://academic.oup.com/nar/article/47/21/11304/5609525)
 
 
 ### Citation

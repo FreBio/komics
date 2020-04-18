@@ -95,7 +95,7 @@ class Circularizer:
 				circularize_result.append(SeqRecord(minicircle.seq, id=newid, description=""))
 		
 		SeqIO.write(circularize_result, self.output_fasta, "fasta")
-		sys.stderr.write('Circularized minicircles can be found in %s.\n ' % (self.output_fasta))
+		sys.stderr.write('Circularized minicircles can be found in %s. The names of circularized minicircles are appended with _circularized. \n ' % (self.output_fasta))
 
 
 	def run(self):

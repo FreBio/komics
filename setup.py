@@ -1,5 +1,5 @@
 from setuptools import setup, find_packages
-        
+ 
 setup(name='komics',
       version='1.1.8',
       description='Kinetoplast genOMICS',
@@ -12,9 +12,8 @@ setup(name='komics',
       scripts=['bin/komics'],
       packages=find_packages(exclude=['docs', 'tests*', 'data*']),
       package_data={'komics': ['data/*']},
+      include_package_data=True,
       install_requires=[
-      	'Cython',
-	'pysam',
 	'biopython',
       ],
       #dependency_links=['https://github.com/sanger-pathogens/Fastaq.git'],

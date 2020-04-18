@@ -5,28 +5,28 @@ import sys
 
 commands = {
     'all',
-    'bam2fq',
-    'trimfq',
+#    'bam2fq',
+#    'trimfq',
     'assemble',
     'circularize',    
-    'polish',
-    'qualcheck'
+    'polish'
+#    'qualcheck'
     }
 
 def usage():
     print('\nProgram: komics (Kinetoplast genOMICS)')
     
-    print('Dependencies: megahit trimmomatic blastn smalt vsearch')
+    print('Dependencies: megahit blastn vsearch')
     print('Usage: komics <command> [options]\n')
     
     print('Available commands:')
     print('\t all:         \t Runs assemble, circularize and polish')
-    print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
-    print('\t trimfq:      \t Cleans and filters reads for high quality')
+#    print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
+#    print('\t trimfq:      \t Cleans and filters reads for high quality')
     print('\t assemble:    \t Assembles minicircles using high quality reads from trimfq')
     print('\t circularize: \t Circularizes minicircles from assemble')
     print('\t polish:      \t Reorientate and filter circular minicircles')
-    print('\t qualcheck:   \t Estimates read counts and depths per minicircle and overall')
+#    print('\t qualcheck:   \t Estimates read counts and depths per minicircle and overall')
     
     print('\nTo get usage for a given command use: komics command -h, --help\n')
     
