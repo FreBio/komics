@@ -3,7 +3,7 @@
   * [Installation](#installation)
   * [Usage](#usage)
   * [Tutorial](#tutorial)
-  * [Further reading](#further reading)
+  * [Reading](#reading)
   * [Citation](#citation)
 
 
@@ -52,7 +52,7 @@ polish:      	 Reorientate and filter circular minicircles
 
 ## Tutorial
 
-# 1. Preparing your data
+### 1. Preparing your data
 If you have a BAM file with sequence reads aligned against a nuclear reference genome, you first need to extract the unaligned reads (i.e those reads that likely originate from the mitochondrial genome) from the BAM file using [samtools](http://www.htslib.org), and then convert the BAM file into FASTQ files using [GATK](https://gatk.broadinstitute.org/hc/en-us):
 ```
 samtools view -b -f 4 -o unmapped.reads.bam reads.bam
@@ -66,7 +66,7 @@ fastp -i reads1.fq.gz -I reads2.fq.gz -o reads1.trimmed.fq.gz -O reads2.trimmed.
 You might need to change the setting -l (minimum read length) to a lower value if your reads are shorter.
 
 
-# 2. Assemble the mitochondrial genome
+### 2. Assemble the mitochondrial genome
 Use komics all to automate the assembly, circularization and polishing of the mitochondrial minicircles. This can be done using a single command:
 ```
 komics all --kmin 99 --kmax 119 --kstep 10 --minidentity 95 run1 reads1.trimmed.fq.gz reads2.trimmed.fq.gz
@@ -87,7 +87,7 @@ For some datasets it might be better to assemble contigs using a k-mer sweep app
 The komics all (and assemble) command will also extract maxicircle contigs. Note that the optimal kmer might be different for maxicircles and minicircles. For minicircles, we recommend using high kmer values that are close to the read length (e.g. kmer of 119 for reads that are 125 bp long). For maxicircles, we recommend using lower kmer values (e.g. 29). It is recommended to try different kmers and verify the output files *.maxicircle.fasta and *.minicircles.fasta for each run. For minicircles, you are probably interested in using a kmer strategy that yields the largest number of circularized minicircles. For maxicircles, you are rather interested in the kmer strategy that yields the longest maxicircle contig.
 
 
-## Further reading
+## Reading
 This paper includes a detailed outline on how to assemble, circularize and annotate maxicircles based on homology:
 __Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala__
 Van den Broeck et al. Molecular Ecology doi: [10.1111/mec.14809](https://pubmed.ncbi.nlm.nih.gov/30142241/)
