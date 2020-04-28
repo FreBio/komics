@@ -8,11 +8,7 @@
 
 
 ### Introduction
-komics is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2019). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
-
-komics is described in detail here:
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck et al. BIORXIV 2019 doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
+KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2019). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
 
 Please report any issues or questions to fvandenbroeckATitg.be
 
@@ -28,7 +24,7 @@ Once the dependencies are installed, install the latest version of KOMICS using 
 pip3 install git+https://github.com/FreBio/komics.git
 ```
 
-If you are running komics on a supercomputer, you may want to have a look [here](https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/software/python_package_management.html#alternatives-to-conda) on how to setup your local environment and pip install options.
+If you are running KOMICS on a supercomputer, you may want to have a look [here](https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/software/python_package_management.html#alternatives-to-conda) on how to setup your local environment and pip install options.
 
 
 ### Usage
@@ -51,7 +47,7 @@ polish:      	 Reorientate and filter circular minicircles
 
 
 ### Tutorial
-If this is the first time you use komics, you may want to follow the tutorial using the data provided on our github page. These sequence reads were generated using whole genome sequencing of Leishmania peruviana isolate LCA04. The following files contain the sequence reads that did not align to the Leishmania braziliensis reference genome:
+If this is the first time you use KOMICS, you may want to follow the tutorial using the data provided on our github page. These sequence reads were generated using whole genome sequencing of *Leishmania peruviana* isolate LCA04. The following files contain the sequence reads that did not align to the *Leishmania braziliensis* M2904 reference genome (see step 1 below).
 ```
 wget https://github.com/FreBio/komics/blob/master/testdata/LCA04_1.fq.gz
 wget https://github.com/FreBio/komics/blob/master/testdata/LCA04_2.fq.gz
@@ -81,11 +77,11 @@ komics assemble --threads 4 --kmin 29 --kmax 119 --kstep 20 LCA04_run1 LCA04_tri
 grep '>' LCA04_run1.maxicircles.fasta
 grep -c '>' tmp.LCA04_run1.csb3contigs.fasta
 ```
-The optimal kmer length depends on the complexity of the mitochondrial genome, and it will also be different for maxicircle and minicircles. For *minicircles*, we recommend using high kmer values that are close to the read length (e.g. kmer of 119 for reads that are 125 bp long). For *maxicircles*, we recommend using low kmer values (e.g. 29). In the example above, we follow a kmer sweep strategy, whereby MEGAhit is run using the following k-list: 29,49,69,89,109,119.
+The optimal kmer length depends on the complexity of the mitochondrial genome, and it will also be different for maxicircle and minicircles. For **minicircles**, we recommend using high kmer values that are close to the read length (e.g. kmer of 119 for reads that are 125 bp long). For **maxicircles**, we recommend using low kmer values (e.g. 29). In the example above, we follow a kmer sweep strategy, whereby MEGAhit is run using the following k-list: 29,49,69,89,109,119.
 
-*Maxicircle* contigs are identified using BLAST against maxicircle sequences of Leishmania braziliensis, Trypanosoma brucei, T. equiperdum and T. lewisi. The resulting maxicircle contigs can be found in the file LCA04\_run1.maxicircles.fasta including one contig of length 17,202bp that covers the entire coding region. If you are interested in generating a complete circularized assembly of the maxicircle that includes both coding and divergent region, please read Van den Broeck et al. (2018).
+**Maxicircle** contigs are identified using BLAST against maxicircle sequences of Leishmania braziliensis, Trypanosoma brucei, T. equiperdum and T. lewisi. The resulting maxicircle contigs can be found in the file LCA04\_run1.maxicircles.fasta including one contig of length 17,202bp that covers the entire coding region. If you are interested in generating a complete circularized assembly of the maxicircle that includes both coding and divergent region, please read Van den Broeck et al. (2018).
 
-*Minicircle* contigs are extracted based on the presence of the Conserved Sequence Block 3 (CSB3), a 12-bp minicircle motif, also known as the universal minicircle sequence, that is highly conserved across all Kinetoplastida species (Ray 1989). By default, KOMICS uses the known CSB-3 motif GGGGTTGGTGTA, GGGGTTGATGTA and their reverse complements to extract contigs of putative minicircle origin. The resulting minicircle contigs can be found in the file tmp.LCA04\_run1.csb3contigs.fasta including a total of 53 minicircle contigs. This seems like a rather low number of minicircles, and is due to the fact that we included low kmer values. Let's do another assembly, this time using only high kmer values:
+**Minicircle** contigs are extracted based on the presence of the Conserved Sequence Block 3 (CSB3), a 12-bp minicircle motif, also known as the universal minicircle sequence, that is highly conserved across all Kinetoplastida species (Ray 1989). By default, KOMICS uses the known CSB-3 motif GGGGTTGGTGTA, GGGGTTGATGTA and their reverse complements to extract contigs of putative minicircle origin. The resulting minicircle contigs can be found in the file tmp.LCA04\_run1.csb3contigs.fasta including a total of 53 minicircle contigs. This seems like a rather low number of minicircles, and is due to the fact that we included low kmer values. Let's do another assembly, this time using only high kmer values:
 ```
 komics assemble --threads 4 --kmin 99 --kmax 119 --kstep 10 LCA04_run2 LCA04_trim_1.fq.gz LCA04_trim_2.fq.gz
 grep -c '>' tmp.LCA04_run2.csb3contigs.fasta
@@ -104,12 +100,14 @@ Of the 85 minicircle contigs, 74 (87%) were successfully circularized.
 
 
 #### 5. Polish the circularized minicircles
-Finally, we want to align all minicircles by (a) reorienting each minicircle contig based on the CSB3-mer, (b) putting the Conserved Sequence Block 1 (CSB1) at the start of each circularized minicircle contig and (c) cluster contigs based on a minimum percent identity (e.g. 97%).
+Finally, we want to align all minicircles by **(a)** reorienting each minicircle contig based on the CSB3-mer, **(b)** putting the Conserved Sequence Block 1 (CSB1) at the start of each circularized minicircle contig and **(c)** cluster contigs based on a minimum percent identity (e.g. 97%) using VSEARCH.
 ```
 komics polish --minidentity 97 LCA04_run2 tmp.LCA04_run2.circularized.fasta
 grep -c '>' LCA04_run2.minicircles.fasta 
 ```
 
+
+#### 5. Remove intermediate files
 Once you are happy with the final set of maxicircles and minicircles, you can remove all intermediate files:
 ```
 rm -r tmp.LCA04_run*
@@ -135,19 +133,13 @@ Another important difference is that `komics all` will generate independent asse
 ### Citation
 If you use this software please cite:
 
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__   
+__Ecological divergence and hybridization of Neotropical Leishmania parasites__
 Van den Broeck et al. BIORXIV 2019 doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
 
 
 ### References
-__Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala__
-Van den Broeck et al. 2018 Molecular Ecology doi: [10.1111/mec.14809](https://pubmed.ncbi.nlm.nih.gov/30142241/)
+Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
 
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck et al. 2019 BIORXIV doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
+Van den Broeck et al. 2018 [Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala](https://pubmed.ncbi.nlm.nih.gov/30142241/) Molecular Ecology.
 
-__Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes__
-Ray. 1989 Molecular and Cellular Biology doi: [10.1128/mcb.9.3.1365](https://dx.doi.org/10.1128%2Fmcb.9.3.1365)
-
-__Assembly and annotation of the mitochondrial minicircle genome of a differentiation-competent strain of Trypanosoma brucei__
-Cooper et al. 2019 Nucleic Acids Research doi: [10.1093/nar/gkz928](https://academic.oup.com/nar/article/47/21/11304/5609525)
+Van den Broeck et al. 2019 [Ecological divergence and hybridization of Neotropical Leishmania parasites](https://www.biorxiv.org/content/10.1101/824912v1) BIORXIV.
