@@ -6,7 +6,8 @@ if [ $# -eq 0 ]; then
     echo ""
     echo "Calculate mapping statistics from SAM/BAM files"
     echo ""
-    echo "Usage: mapping_stats.sh inputfile"
+    echo "Usage: mapping_stats.sh inputfile outputfile"
+    echo "Requires: SAMTOOLS"
     echo ""
 else
 
