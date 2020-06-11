@@ -152,7 +152,7 @@ cat run2.mapped.depth.stats.sh
 Minicircle copy numbers can then be estimated by standardizing median read depths per minicircle to the median genome-wide read depths. For instance, We know that the median genome-wide read depth for our sample is equal to 91. Assuming diploidy, this means that the haploid read depth is equal to ~45. Here, median minicircle read depths range between 218 and 7892. Hence, the minicircle copy numbers range between 2 and 87.
 
 
-#### 8. Remove intermediate files
+#### 7. Remove intermediate files
 Once you are happy with the final set of maxicircles and minicircles, you can remove all intermediate files:
 ```
 rm -r tmp.LCA04_run*
