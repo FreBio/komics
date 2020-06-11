@@ -107,41 +107,52 @@ grep -c '>' LCA04_run2.minicircles.fasta
 ```
 
 
-#### 6. Check the quality of the assembly
+#### 6. Check the quality and read depth of the assembly
 To check the quality of the assembly, we will need to calculate some mapping statistics. One useful metric is the proportion of (near-)perfect alignments of CSB3-containing reads, which serves as a proxy for the total number of minicircles that were initially present within the DNA sample. Note that the CSB-3 12-mer is present within both the minicircles and maxicircles, so it's recommended to use only those CSB3-reads that did not align to the maxicircle.
-First, let's create overlapping ends for the circularized minicircles by copying the last 150bp of the circularized contig to the start of each circularized contig. The reason we do this is because
-1. we want to make sure to include all reads during the alignment process where we use high percent identities to include only those reads that almost perfectly match to the minicircle (see below).
-2. read depth at overlapping ends of circular sequences should be approximately half the median read depth of the entire sequence.
+First, let's create overlapping ends for the circularized minicircles by copying the last 150bp of the circularized contig to the start of each circularized contig. The reason we do this is because **(a)** we want to make sure to include all reads during the alignment process where we use high percent identities to include only those reads that almost perfectly match to the minicircle (see below) and **(b)** 2. read depth at overlapping ends of circular sequences should be approximately half the median read depth of the entire sequence.
 ```
-wget https://github.com/FreBio/komics/blob/master/komics/fasta_extend.py
-fasta_extend.py LCA04_run2.minicircles.extended.fasta LCA04_run2.minicircles.fasta 150
+wget https://github.com/FreBio/komics/raw/master/komics/fasta_extend.py
+chmod 755 fasta_extend.py
+./fasta_extend.py LCA04_run2.minicircles.extended.fasta LCA04_run2.minicircles.fasta 150
 ```
 
-Now we can map the reads to the extended minicircles, e.g. using SMALT:
+Now we can map the reads to the extended minicircles, e.g. using SMALT (or BWA):
 ```
 smalt index -k 5 -s 2 LCA04_run2.minicircles.extended.fasta LCA04_run2.minicircles.extended.fasta
 smalt map -f sam -y 0.95 -o run2.mapped.sam LCA04_run2.minicircles.extended.fasta LCA04_trim_1.fq.gz LCA04_trim_2.fq.gz
 ```
 
-And finally run the following script to get some mapping stats:
+And run the following script to get some mapping and depth stats:
 ```
-wget https://github.com/FreBio/komics/blob/master/komics/mapping_stats.sh
-mapping_stats.sh run2.mapped.sam
+wget https://github.com/FreBio/komics/raw/master/komics/mapping_stats.sh
+chmod 755 mapping_stats.sh
+./mapping_stats.sh run2.mapped.sam
 ```
-Results show that a total of 1,475,568 reads mapped to the minicircle, of which 98% reads with MQ > 20 and 80% in proper pair. 
-Of a total of 255,168 reads with CSB3, only 66% aligned against the minicircles, suggesting that we missed 
 
-Number of reads: 2220450
-Number of mapped reads: 1475568
-Number of reads with mapping quality >= 20: 1444029
-Number of properly paired reads: 1171000
-Number of CSB3-containing reads: 255168
-Number of mapped CSB3-containing reads: 168809
-Number of CSB3-containing reads with mapping quality >= 20: 164882
-Number of properly paired CSB3-containing reads: 85293
+The following results table gives you a detailed overview of some mapping stats
+```
+cat run2.mapped.mapping.stats.sh
+```
+
+**(a)** Number of reads: 1923482
+**(b)** Number of mapped reads: 1763455
+**(c)** Number of reads with mapping quality >= 20: 1613847
+**(d)** Number of CSB3-containing reads: 212826
+**(e)** Number of mapped CSB3-containing reads: 198904
+**(f)** Number of CSB3-containing reads with mapping quality >= 20: 163262
+
+Results show that a total of 1,763,455 reads (92%) mapped to the minicircle, of which 84% reads with MQ > 20.
+Of a total of 212,826 reads containing CSB3, 94% aligned against the minicircles and 77% with a relatively high mapping quality. This tells us that we have successfully assembled most of the minicircles that were present within the DNA sample.
 
 
-#### 7. Remove intermediate files
+The following results table gives you a detailed overview of the depth stats per minicircle contig
+```
+cat run2.mapped.depth.stats.sh
+```
+Minicircle copy numbers can then be estimated by standardizing median read depths per minicircle to the median genome-wide read depths. For instance, We know that the median genome-wide read depth for our sample is equal to 91. Assuming diploidy, this means that the haploid read depth is equal to ~45. Here, median minicircle read depths range between 218 and 7892. Hence, the minicircle copy numbers range between 2 and 87.
+
+
+#### 8. Remove intermediate files
 Once you are happy with the final set of maxicircles and minicircles, you can remove all intermediate files:
 ```
 rm -r tmp.LCA04_run*
