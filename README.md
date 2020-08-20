@@ -10,7 +10,7 @@
 ### Introduction
 KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2019). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
 
-Please report any issues or questions to fvandenbroeckATitg.be
+Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 
 
 ### Installation
