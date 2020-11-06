@@ -179,8 +179,7 @@ Another important difference is that `komics all` will generate independent asse
 If you use this software please cite:
 
 __Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck et al. BIORXIV 2019 doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
-
+Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
 
 ### References
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
