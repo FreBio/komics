@@ -1,16 +1,23 @@
 ### Contents
   * [Introduction](#introduction)
+  * [Citation](#citation)
   * [Installation](#installation)
   * [Usage](#usage)
   * [Tutorial](#tutorial)
-  * [Citation](#citation)
   * [References](#references)
 
 
 ### Introduction
-KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2019). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
+KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2020). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
 
 Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
+
+
+### Citation
+If you use this software please cite:
+
+__Ecological divergence and hybridization of Neotropical Leishmania parasites__
+Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
 
 
 ### Installation
@@ -175,11 +182,6 @@ Another important difference is that `komics all` will generate independent asse
 1. Cluster minicircles that are 95% identical
 
 
-### Citation
-If you use this software please cite:
-
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
 
 ### References
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
