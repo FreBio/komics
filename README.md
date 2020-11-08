@@ -16,9 +16,7 @@ Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 ### Citation
 If you use this software please cite:
 
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__
-
-Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
+Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. __Ecological divergence and hybridization of Neotropical Leishmania parasites__ [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
 
 
 ### Installation
