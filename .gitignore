@@ -1,5 +1,7 @@
 __pycache__
 venv
+.DS_Store
+testruns/
 venvpy37/
 build/
 dist/

@@ -21,7 +21,7 @@ KOMICS has the following dependencies, which need to be installed first:
 
 Once the dependencies are installed, install the latest version of KOMICS using pip3:
 ```
-pip3 install git+https://github.com/FreBio/komics.git
+pip install git+https://github.com/FreBio/komics.git
 ```
 
 If you are running KOMICS on a supercomputer, you may want to have a look [here](https://vlaams-supercomputing-centrum-vscdocumentation.readthedocs-hosted.com/en/latest/software/python_package_management.html#alternatives-to-conda) on how to setup your local environment and pip install options.

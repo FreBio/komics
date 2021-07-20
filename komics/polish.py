@@ -19,12 +19,13 @@ class Polisher:
         out,
         fasta,
         minidentity,
+        csb1mer,
         ):
             self.out = out
+            self.csb1 = csb1mer
             self.input_contigs = os.path.abspath(fasta)
             self.oriented_contigs = os.path.abspath('tmp.' + self.out + '.oriented.fasta')
             self.minicircles = os.path.abspath(self.out + '.minicircles.fasta')
-            self.csb1 = re.compile(r'GGGCGTTC|GGGCGTGC')
             self.csb3 = re.compile(r'GGGGTTGGTGT|GGGGTTGATGT')
             self.csb3_comp = re.compile(r'CCCCAACCACA|CCCCAACTACA')
             self.csb3_rev = re.compile(r'TGTGGTTGGGG|TGTAGTTGGGG')
@@ -66,7 +67,10 @@ class Polisher:
 
 
     def put_csb_start(self, sequence):
-        matches=tuple(re.finditer(self.csb1, str(sequence)))
+        matches=tuple(re.finditer(self.csb1, str(sequence+sequence[:50])))
+        if len(matches) == 0:
+                sys.stderr.write("WARNING: found zero CSB1-mers in " + str(id) + ". Skipping orientation for this one. \n")
+                return sequence
         if len(matches) == 1:
             try:
                 match=re.search(self.csb1, str(sequence))
@@ -76,7 +80,7 @@ class Polisher:
                 match = re.search(self.csb1, str(sequence[50:]+sequence[:50]))
                 chop=match.span()[0]
                 return sequence[chop:]+sequence[:chop]
-        if len(matches) > 1:
+        if len(matches) == 2:
             fst_csb1 = matches[0].span()[0]
             snd_csb1 = matches[1].span()[0]
             try:
@@ -91,6 +95,8 @@ class Polisher:
                 return sequence[snd_csb1:]+sequence[:snd_csb1]
             else:
                 return sequence[fst_csb1:]+sequence[:fst_csb1]
+        if len(matches) > 2:
+            sys.stderr.write("WARNING: found >2 CSB1-mers in " + str(id) + ". Skipping orientation for this one. \n")
 
 
     def orient_run(self):

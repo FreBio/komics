@@ -13,7 +13,6 @@ else
 samfile=$1
 out=$(echo $samfile | sed 's/\.sam//g')
 
-
 Nreads=$(samtools view -c $samfile)
 NMreads=$(samtools view -c -F 4 $samfile)
 NMQ20reads=$(samtools view -c -F 4 -q 20 $samfile)

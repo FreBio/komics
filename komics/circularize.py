@@ -15,13 +15,15 @@ class Circularizer:
 	def __init__(self, 
 		out,
 		fasta, 
-		minoverlap=20,
+		minoverlap,
+		maxoverlap,
 		):
 			self.sample_name = out
 			self.input_contigs = os.path.abspath(fasta)
 			self.output_xml = os.path.abspath('tmp.' + self.sample_name + '.1.xml')
 			self.output_fasta = os.path.abspath('tmp.' + self.sample_name + '.circularized.fasta')
 			self.min_overlap = minoverlap
+			self.max_overlap = maxoverlap
 			self.min_identity = int(100)
 			if not os.path.exists(self.input_contigs):
 				raise Error('Contigs file not found:' + self.input_contigs)
@@ -65,7 +67,7 @@ class Circularizer:
 				if str(record.query) == str(alignment.hit_def):													# retains self-hits only
 					for hsp in alignment.hsps:
 						if not (hsp.sbjct_start == hsp.query_start and hsp.sbjct_end == hsp.query_end):			# removes self-matches
-							if hsp.align_length >= self.min_overlap:												# retains alignments with minimum length
+							if hsp.align_length >= self.min_overlap and hsp.align_length <= self.max_overlap:	# retains alignments with minimum length
 								perc_identity=100*hsp.identities/hsp.align_length
 								if perc_identity >= self.min_identity:											# retains alignments with minimum percent identity
 									if hsp.query_start == 1 and hsp.sbjct_end == record.query_length:
