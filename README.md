@@ -55,8 +55,8 @@ polish:      	 Reorientate and filter circular minicircles
 ### Tutorial
 If this is the first time you use KOMICS, you may want to follow the tutorial using the data provided on our github page. These sequence reads were generated using whole genome sequencing of *Leishmania peruviana* isolate LCA04. The following files contain the sequence reads that did not align to the *Leishmania braziliensis* M2904 reference genome (see step 1 below).
 ```
-wget https://github.com/FreBio/komics/blob/master/testdata/LCA04_1.fq.gz
-wget https://github.com/FreBio/komics/blob/master/testdata/LCA04_2.fq.gz
+wget https://github.com/FreBio/komics/blob/master/data/LCA04_1.fq.gz
+wget https://github.com/FreBio/komics/blob/master/data/LCA04_2.fq.gz
 ```
 
 
