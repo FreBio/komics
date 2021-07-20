@@ -1,16 +1,22 @@
 ### Contents
   * [Introduction](#introduction)
+  * [Citation](#citation)
   * [Installation](#installation)
   * [Usage](#usage)
   * [Tutorial](#tutorial)
-  * [Citation](#citation)
   * [References](#references)
 
 
 ### Introduction
-KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2019). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
+KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2020). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
 
 Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
+
+
+### Citation
+If you use this software please cite:
+
+Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. __Ecological divergence and hybridization of Neotropical Leishmania parasites__ [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
 
 
 ### Installation
@@ -174,12 +180,6 @@ Another important difference is that `komics all` will generate independent asse
 1. Reorient circularized minicircles and put the Conserved Sequence Block 1 (CSB1) at the start of the contig
 1. Cluster minicircles that are 95% identical
 
-
-### Citation
-If you use this software please cite:
-
-__Ecological divergence and hybridization of Neotropical Leishmania parasites__
-Van den Broeck et al. BIORXIV 2019 doi: [10.1101/824912](https://www.biorxiv.org/content/10.1101/824912v1)
 
 
 ### References
