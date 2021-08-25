@@ -20,41 +20,53 @@ class Polisher:
         fasta,
         minidentity,
         csb1mer,
-        csb3mer,
         ):
             self.out = out
             self.csb1 = csb1mer
-            self.csb3 = csb3mer
             self.input_contigs = os.path.abspath(fasta)
             self.oriented_contigs = os.path.abspath('tmp.' + self.out + '.oriented.fasta')
             self.minicircles = os.path.abspath(self.out + '.minicircles.fasta')
+            self.csb3 = re.compile(r'GGGGTTGGTGT|GGGGTTGATGT')
+            self.csb3_comp = re.compile(r'CCCCAACCACA|CCCCAACTACA')
+            self.csb3_rev = re.compile(r'TGTGGTTGGGG|TGTAGTTGGGG')
+            self.csb3_rev_comp = re.compile(r'ACACCAACCCC|ACATCAACCCC')
             self.output_vsearch = os.path.abspath('tmp.' + self.out + '.uc')
             self.min_identity = int(minidentity)
             if not os.path.exists(self.input_contigs):
                 raise Error('Contigs file not found:' + self.input_contigs)
 
-    def _rev_comp(self, seq):
-        comp = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N", "|": "|"}
-        rc = "".join([comp[x] for x in seq[::-1]])
-        return rc
+
+    def complement(self, sequence):
+        complement = {'A':'T','C':'G','G':'C','T':'A','-':'-'}
+        return "".join([complement.get(nt.upper(), '') for nt in sequence])
 
 
     def reorientate(self, sequence, id):
         if re.findall(self.csb3, str(sequence)):
             return sequence
-        elif re.findall(self._rev_comp(self.csb3), str(sequence)):
-            return self._rev_comp(sequence)
+        elif re.findall(self.csb3_rev, str(sequence)):
+            return sequence[::-1]
+        elif re.findall(self.csb3_comp, str(sequence)):
+            return self.complement(sequence[:-1])
+        elif re.findall(self.csb3_rev_comp, str(sequence)):
+            return self.complement(sequence[::-1])
         elif re.findall(self.csb3, str(sequence[100:]+sequence[:100])):
             newseq=sequence[100:]+sequence[:100]
             return newseq
-        elif re.findall(self._rev_comp(self.csb3), str(sequence[100:]+sequence[:100])):
+        elif re.findall(self.csb3_rev, str(sequence[100:]+sequence[:100])):
             newseq=sequence[100:]+sequence[:100]
-            return self._rev_comp(sequence)
+            return newseq[::-1]
+        elif re.findall(self.csb3_comp, str(sequence[100:]+sequence[:100])):
+            newseq=sequence[100:]+sequence[:100]
+            return self.complement(newseq[:-1])
+        elif re.findall(self.csb3_rev_comp, str(sequence[100:]+sequence[:100])):
+            newseq=sequence[100:]+sequence[:100]
+            return self.complement(newseq[::-1])
         else:
             sys.stderr.write("WARNING: no CSB3-mer found for " + str(id) + ". Skipping this one. \n")
 
 
-    def put_csb_start(self, sequence, id):
+    def put_csb_start(self, sequence):
         matches=tuple(re.finditer(self.csb1, str(sequence+sequence[:50])))
         if len(matches) == 0:
                 sys.stderr.write("WARNING: found zero CSB1-mers in " + str(id) + ". Skipping orientation for this one. \n")
@@ -91,7 +103,7 @@ class Polisher:
         newseqs = []
         for minicircle in SeqIO.parse(self.input_contigs, "fasta"):
             if re.search('circular', minicircle.id):
-                tmp=Seq(str(self.put_csb_start(self.reorientate(minicircle.seq, minicircle.id),minicircle.id))) # added minicircle.id to put-csb-start argument
+                tmp=Seq(str(self.put_csb_start(self.reorientate(minicircle.seq, minicircle.id))))
                 newseqs.append(SeqRecord(tmp, id=minicircle.id, description=""))
             else:
                 tmp=Seq(str(self.reorientate(minicircle.seq, minicircle.id)))

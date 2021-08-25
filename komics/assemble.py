@@ -1,7 +1,3 @@
-'''
-TO DO:
-  * add histogram plotting showing minicircle lengths
-'''
 import re
 import os
 import sys
@@ -21,11 +17,12 @@ class Megahit:
     out,
     reads1,
     reads2,
-    threads=1,
-    kmin=39,
-    kmax=119,
-    kstep=10,
-    length=400,
+    csb3mer,
+    threads,
+    kmin,
+    kmax,
+    kstep,
+    length,
     ):
       self.out = out
       self.input_contigs = "tmp." + self.out + "_megahit/" + self.out + ".contigs.fa"
@@ -36,12 +33,13 @@ class Megahit:
       self.output_max_contigs = os.path.abspath(self.out + '.maxicircles.fasta')
       self.reads1 = os.path.abspath(reads1)
       self.reads2 = os.path.abspath(reads2)
+      self.CSB3 = csb3mer
       self.threads = threads
       self.kmin = kmin
       self.kmax = kmax
       self.kstep = kstep
       self.length = length
-      self.CSB3 = 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC'
+      #self.CSB3 = 'GGGGTTGGTGT|ACACCAACCCC|GGGGTTGATGT|ACATCAACCCC'
 
       if not os.path.exists(self.reads1):
         sys.stderr.write('\nERROR: reads1 file not found: "' + self.reads1 + '"\n')
@@ -52,7 +50,7 @@ class Megahit:
 
 
   def _rev_comp(self, seq):
-    comp = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N"}
+    comp = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N", "|": "|"}
     rc = "".join([comp[x] for x in seq[::-1]])
     return rc
 
@@ -80,7 +78,7 @@ class Megahit:
     othercontigs=[]
     Nminicircles = 0
     for contig in SeqIO.parse(self.input_contigs, 'fasta'):
-      if re.findall(self.CSB3, str(contig.seq)):
+      if re.findall(str(self.CSB3+"|"+self._rev_comp(self.CSB3)), str(contig.seq)):
         Nminicircles=Nminicircles+1
         minicircles.append(SeqRecord(contig.seq, id=contig.id, description=""))
       else:
