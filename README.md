@@ -8,7 +8,9 @@
 
 
 ### Introduction
-KOMICS is a python3.7 package that aids in the assembly and circularization of mitochondrial genomes in trypanosomatids (Van den Broeck et al. 2020). The input is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
+The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. 
+
+The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
 
 Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 
