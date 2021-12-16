@@ -13,10 +13,21 @@ KOMICS is a python3.7 package that aids in the assembly and circularization of m
 Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 
 
-### Citation
-If you use this software please cite:
+### Reading
+The following paper includes a step-by-step tutorial on how to use KOMICS and its accompanying rKOMICS software package:
 
-Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. __Ecological divergence and hybridization of Neotropical Leishmania parasites__ [PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 2020. 117(40): 25159-25168.](https://www.pnas.org/content/117/40/25159)
+Geerts M, Schnaufer A, **Van den Broeck F**. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
+
+
+### Citation
+If you use KOMICS please cite:
+
+**Van den Broeck F**, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [Ecological divergence and hybridization of Neotropical *Leishmania* parasites](https://www.pnas.org/content/early/2020/09/18/1920136117). PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 117(40): 25159-25168.
+
+
+If you use rKOMICS please cite:
+
+Geerts M, Schnaufer A, **Van den Broeck F**. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
 
 
 ### Installation
@@ -186,5 +197,3 @@ Another important difference is that `komics all` will generate independent asse
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
 
 Van den Broeck et al. 2018 [Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala](https://pubmed.ncbi.nlm.nih.gov/30142241/) Molecular Ecology.
-
-Van den Broeck et al. 2019 [Ecological divergence and hybridization of Neotropical Leishmania parasites](https://www.biorxiv.org/content/10.1101/824912v1) BIORXIV.
