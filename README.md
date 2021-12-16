@@ -176,7 +176,7 @@ rm -r tmp.LCA04_run*
 ```
 
 
-#### Automated assembly and circularization (deprecated)
+#### Automated assembly and circularization (deprecated - this will probably not work anymore as it is no longer supported)
 Use `komics all` to automate the assembly, circularization and polishing of the mitochondrial minicircles. This can be done using a single command, for instance:
 ```
 komics all --kmin 99 --kmax 119 --kstep 10 --minidentity 95 run3 LCA04_trim_1.fq.gz LCA04_trim_2.fq.gz
