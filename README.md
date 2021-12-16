@@ -169,23 +169,6 @@ rm -r tmp.LCA04_run*
 ```
 
 
-#### Automated assembly and circularization (deprecated - this will probably not work anymore as it is no longer supported)
-Use `komics all` to automate the assembly, circularization and polishing of the mitochondrial minicircles. This can be done using a single command, for instance:
-```
-komics all --kmin 99 --kmax 119 --kstep 10 --minidentity 95 run3 LCA04_trim_1.fq.gz LCA04_trim_2.fq.gz
-```
-
-Note that `komics all` will only retain circularized minicircles, and discard all other contigs. This is an important difference with `komics assemble` that retains both circularized and non-circularized minicircle contigs. 
-Another important difference is that `komics all` will generate independent assemblies for each kmer (here 99, 109 and 119) and then merge the minicircles of all assemblies. For instance, for the above settings, the following steps will be performed:
-1. Assemble and circularize contigs using a kmer of 99
-1. Assemble and circularize contigs using a kmer of 109
-1. Assemble and circularize contigs using a kmer of 119
-1. Merge circularized minicircles generated during the first three steps
-1. Reorient circularized minicircles and put the Conserved Sequence Block 1 (CSB1) at the start of the contig
-1. Cluster minicircles that are 95% identical
-
-
-
 ### References
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
 
