@@ -16,7 +16,7 @@ Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 
 
 ### Reading
-The following paper includes a step-by-step tutorial on how to use KOMICS and its accompanying rKOMICS software package:
+The following paper includes a step-by-step tutorial on how to best use the rKOMICS software suite:
 
 Geerts M, Schnaufer A, **Van den Broeck F**. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
 
