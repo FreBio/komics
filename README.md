@@ -8,9 +8,7 @@
 
 
 ### Introduction
-The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. 
-
-The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format.
+The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format, which can be further processed by rKOMICS.
 
 Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
 
