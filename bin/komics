@@ -20,12 +20,12 @@ def usage():
     print('Usage: komics <command> [options]\n')
     
     print('Available commands:')
-    print('\t all:         \t Runs assemble, circularize and polish')
+#    print('\t all:         \t Runs assemble, circularize and polish')
 #    print('\t bam2fq:      \t Writes paired-end reads from a BAM file to FASTQ files')
 #    print('\t trimfq:      \t Cleans and filters reads for high quality')
-    print('\t assemble:    \t Assembles minicircles using high quality reads from trimfq')
-    print('\t circularize: \t Circularizes minicircles from assemble')
-    print('\t polish:      \t Reorientate and filter circular minicircles')
+    print('\t assemble:    \t Assembles minicircle sequences using high quality reads')
+    print('\t circularize: \t Circularizes minicircle sequences from assemble')
+    print('\t polish:      \t Reorientates and filters circular minicircle sequences')
 #    print('\t qualcheck:   \t Estimates read counts and depths per minicircle and overall')
     
     print('\nTo get usage for a given command use: komics command -h, --help\n')

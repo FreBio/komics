@@ -84,7 +84,15 @@ class Polisher:
             else:
                 return sequence[fst_csb1:]+sequence[:fst_csb1]
         if len(matches) > 2:
-            sys.stderr.write("WARNING: found >2 CSB1-mers in " + str(id) + ". Skipping orientation for this one. \n")
+            sys.stderr.write("WARNING: found >2 CSB1-mers in " + str(id) + ". Orienting minicircle using the first CSB1-mer.\n")
+            try:
+                match=re.search(self.csb1, str(sequence))
+                chop=match.span()[0]
+                return sequence[chop:]+sequence[:chop]
+            except AttributeError:
+                match = re.search(self.csb1, str(sequence[50:]+sequence[:50]))
+                chop=match.span()[0]
+                return sequence[chop:]+sequence[:chop]
 
 
     def orient_run(self):

@@ -8,19 +8,28 @@
 
 
 ### Introduction
-The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format, which can be further processed by rKOMICS.
+The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. Assembly, circularization and orientation is done with KOMICS, while downstream cluster analyses is done with rKOMICS.
+KOMICS has been successfully used to study the minicircle complexity in **Leishmania braziliensis** ([Van den Broeck et al. 2020](https://www.pnas.org/content/early/2020/09/18/1920136117); [Geerts et al. 2021](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1)) and **Trypanosoma brucei gambiense** ([Geerts et al. 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9582789/)). 
 
-Please report any issues or questions to frederik.vandenbroeck AT kuleuven.be
+KOMICS can also be used to study the minicircle complexity in **Trypanosoma cruzi**. Trypanosoma cruzi contains four groups of minicircles, each with differing lengths: group 1 (336-376bp), group 2 (698-769bp), group 3 (1051-1095bp) and group 4 (1357-1448bp) (Callejas-Hernández et al. 2021). Therefore, it is imperative that you first generate fasta files for each of the four groups of minicircles before running KOMICS polish.
+
+The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format, which can be further processed by rKOMICS.
+
+Please report any issues or questions to frederik.vandenbroeck AT gmail.com
 
 
 ### Reading
-The following paper includes a **step-by-step tutorial** on how to best use the rKOMICS software suite: Geerts M, Schnaufer A, Van den Broeck F. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
+The following paper includes a **step-by-step tutorial** on how to best use the rKOMICS software suite:
+
+Geerts et al. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
 
 
 ### Citation
-If you use **KOMICS** please cite: Van den Broeck F, Savill N, Imamura H, Sanders M, Maes I, Cooper S, Mateus D, Jara M, Adaui V, Arevalo J, Llanos-Cuentas A, Garcia L, Cupolillo E, Miles M, Berriman M, Schnaufer A, Cotton J, Dujardin JC. [Ecological divergence and hybridization of Neotropical *Leishmania* parasites](https://www.pnas.org/content/early/2020/09/18/1920136117). PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 117(40): 25159-25168.
+Please cite the following two papers when using the rKOMICS software suite:
 
-If you use **rKOMICS** please cite: Geerts M, Schnaufer A, Van den Broeck F. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
+Van den Broeck et al. [Ecological divergence and hybridization of Neotropical *Leishmania* parasites](https://www.pnas.org/content/early/2020/09/18/1920136117). PROCEEDINGS OF NATIONAL ACADEMY OF SCIENCES. 117(40): 25159-25168.
+
+Geerts et al. [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC BIOINFORMATICS. 22:468.
 
 
 ### Installation
@@ -110,7 +119,8 @@ Of the 85 minicircle contigs, 74 (87%) were successfully circularized.
 
 
 #### 5. Polish the circularized minicircles
-Finally, we want to align all minicircles by **(a)** reorienting each minicircle contig based on the CSB3-mer, **(b)** putting the Conserved Sequence Block 1 (CSB1) at the start of each circularized minicircle contig and **(c)** cluster contigs based on a minimum percent identity (e.g. 97%) using VSEARCH.
+Finally, we want to align all minicircles by **(a)** reorienting each minicircle contig based on the CSB3-mer, **(b)** putting the Conserved Sequence Block 1 (CSB1) at the start of each circularized minicircle contig and **(c)** cluster contigs based on a minimum percent identity (e.g. 97%) using VSEARCH. If more than two CSB1-mers are found in a sequence, KOMICS polish will use the first CSB1-mer in the sequence to align the minicircles.
+Note that for T. cruzi, you first need to generate fasta files for each of the four groups of minicircles before running KOMICS polish.
 ```
 komics polish --minidentity 97 LCA04_run2 tmp.LCA04_run2.circularized.fasta
 grep -c '>' LCA04_run2.minicircles.fasta 
@@ -170,6 +180,8 @@ rm -r tmp.LCA04_run*
 
 
 ### References
+Callejas-Hernàndez et al. 2021. [The complete mitochondrial DNA of Trypanosoma cruzi: maxicircles and minicircles](https://www.frontiersin.org/articles/10.3389/fcimb.2021.672448/full) Frontiers in Cellular and Infection Microbiology. 
+
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
 
 Van den Broeck et al. 2018 [Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala](https://pubmed.ncbi.nlm.nih.gov/30142241/) Molecular Ecology.
