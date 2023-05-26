@@ -11,7 +11,7 @@
 The rKOMICS software suite includes the python3.7 package KOMICS and the R package rKOMICS. These two software packages facilitate the assembly, circularization and downstream analyses of mitochondrial genomes in trypanosomatids. Assembly, circularization and orientation is done with KOMICS, while downstream cluster analyses is done with rKOMICS.
 KOMICS has been successfully used to study the minicircle complexity in **Leishmania braziliensis** ([Van den Broeck et al. 2020](https://www.pnas.org/content/early/2020/09/18/1920136117); [Geerts et al. 2021](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1)) and **Trypanosoma brucei gambiense** ([Geerts et al. 2022](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9582789/)). 
 
-KOMICS can also be used to study the minicircle complexity in **Trypanosoma cruzi**. Trypanosoma cruzi contains four groups of minicircles, each with differing lengths: group 1 (336-376bp), group 2 (698-769bp), group 3 (1051-1095bp) and group 4 (1357-1448bp) (Callejas-Hernández et al. 2021). Therefore, it is imperative that you first generate fasta files for each of the four groups of minicircles before running KOMICS polish.
+KOMICS can also be used to study the minicircle complexity in **Trypanosoma cruzi**. Trypanosoma cruzi contains four groups of minicircles, each with differing lengths: group 1 (336-376bp), group 2 (698-769bp), group 3 (1051-1095bp) and group 4 (1357-1448bp) ([Callejas-Hernández et al. 2021](https://www.frontiersin.org/articles/10.3389/fcimb.2021.672448/full)). Therefore, it is imperative that you first generate fasta files for each of the four groups of minicircles before running KOMICS polish (see below).
 
 The input of KOMICS is reads in FASTQ format, and the output is maxicircle and circularized minicircles in FASTA format, which can be further processed by rKOMICS.
 
@@ -180,8 +180,14 @@ rm -r tmp.LCA04_run*
 
 
 ### References
-Callejas-Hernàndez et al. 2021. [The complete mitochondrial DNA of Trypanosoma cruzi: maxicircles and minicircles](https://www.frontiersin.org/articles/10.3389/fcimb.2021.672448/full) Frontiers in Cellular and Infection Microbiology. 
+Callejas-Hernàndez et al. 2021 [The complete mitochondrial DNA of Trypanosoma cruzi: maxicircles and minicircles](https://www.frontiersin.org/articles/10.3389/fcimb.2021.672448/full) Frontiers in Cellular and Infection Microbiology. 
+
+Geerts et al. 2021 [rKOMICS: an R package for processing mitochondrial minicircle assemblies in population-scale genome projects](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04384-1). BMC Bioinformatics.
+
+Geerst et al. 2022 [Deep kinetoplast genome analyses result in a novel molecular assay for detecting Trypanosoma brucei gambiense-specific minicircles](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9582789/). NAR Genomics and Bioinformatics.
 
 Ray. 1989 [Conserved sequence blocks in kinetoplast minicircles from diverse species of trypanosomes](https://dx.doi.org/10.1128%2Fmcb.9.3.1365) Molecular and Cellular Biology.
 
 Van den Broeck et al. 2018 [Mitonuclear Genomics Challenges the Theory of Clonality in Trypanosoma Congolense: Reply to Tibayrenc and Ayala](https://pubmed.ncbi.nlm.nih.gov/30142241/) Molecular Ecology.
+
+Van den Broeck et al. 2020 [Ecological divergence and hybridization of Neotropical *Leishmania* parasites](https://www.pnas.org/content/early/2020/09/18/1920136117). Proceedings of the National Academy of Science.
