@@ -38,7 +38,7 @@ KOMICS has the following dependencies, which need to be installed first:
   * [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
   * [VSEARCH](https://github.com/torognes/vsearch)
 
-Once the dependencies are installed, install the latest version of KOMICS using pip3:
+Once the dependencies are installed, install the latest version of KOMICS using pip:
 ```
 pip install git+https://github.com/FreBio/komics.git
 ```
@@ -59,9 +59,9 @@ komics command --help
 
 Available commands:
 all:         	 Performs assemble, circularize and polish
-assemble:    	 Assembles minicircles using high quality reads from trimfq
+assemble:    	 Assembles minicircles using paired-end reads
 circularize: 	 Circularizes minicircles from assemble
-polish:      	 Reorientate and filter circular minicircles
+polish:      	 Reorientate and filter circular minicircles from circularize
 ```
 
 
